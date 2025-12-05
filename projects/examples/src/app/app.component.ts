@@ -1,6 +1,7 @@
 import { JsonPipe } from '@angular/common';
 import { Component, computed, signal } from '@angular/core';
-import { signalxResource } from 'ng-signalx';
+import { signalxResource, signalxRxresource } from 'ng-signalx';
+import { delay, map, of } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -47,9 +48,25 @@ export class AppComponent {
     defaultValue: 'Default value',
   });
 
+  private readonly rxResource = signalxRxresource<
+    string | number,
+    { counter: number }
+  >({
+    request: () => ({ counter: this.$counter() }),
+    filter: ({ counter }) => counter > 2,
+    loader: () =>
+      of('This is an observable resource').pipe(
+        delay(2000),
+        map((res) => res),
+      ),
+    defaultValue: 4200,
+  });
+
   public loaderValue = computed(() => this.loaderResource.value());
   public streamValue = computed(() => this.streamResource.value());
+  public rxValue = computed(() => this.rxResource.value());
 
   public isLoaderLoading = computed(() => this.loaderResource.isLoading());
   public isStreamLoading = computed(() => this.streamResource.isLoading());
+  public isRxLoading = computed(() => this.rxResource.isLoading());
 }

@@ -16,25 +16,42 @@ main {
   font-family: $font;
   button {
     width: fit-content;
-    background-color: black;
-    color: white;
+    background-color: #e0e1dd;
+    color: #0d1b2a;
     font-family: $font;
     padding: 6px;
     border-radius: 4px;
     border: 1px solid white;
     cursor: pointer;
+    &:hover {
+      box-shadow: 0px 0px 9px #c6c6c6;
+    }
+    &:active {
+      transform: scale(0.95);
+    }
   }
 }
 
 main,
 .loader__cont,
-.stream__cont {
+.stream__cont,
+.rx__cont {
   display: flex;
   flex-direction: column;
-
   gap: 8px;
 
   &:is(main) {
     gap: 24px;
+  }
+
+  .result {
+    background-color: #121212;
+    border-radius: 6px;
+    border: 1px solid white;
+    padding: 12px;
+
+    pre {
+      margin: 0;
+    }
   }
 }

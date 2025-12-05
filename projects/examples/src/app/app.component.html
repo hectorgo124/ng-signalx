@@ -7,11 +7,13 @@
       {{ $counter() }})
     </span>
 
-    @if (isLoaderLoading()) {
-      <span>Loading...</span>
-    } @else {
-      <pre>{{ loaderValue() | json }}</pre>
-    }
+    <div class="result" [style.height.px]="45">
+      @if (isLoaderLoading()) {
+        <span>Loading...</span>
+      } @else {
+        <pre>{{ loaderValue() | json }}</pre>
+      }
+    </div>
   </div>
 
   <div class="stream__cont">
@@ -20,10 +22,27 @@
       {{ $counter() }})
     </span>
 
-    @if (isStreamLoading()) {
-      <span>Loading...</span>
-    } @else {
-      <span>{{ streamValue() }}</span>
-    }
+    <div class="result">
+      @if (isStreamLoading()) {
+        <span>Loading...</span>
+      } @else {
+        <span>{{ streamValue() }}</span>
+      }
+    </div>
+  </div>
+
+  <div class="rx__cont">
+    <span>
+      Set the counter greater than 2 to load the rx load (current counter
+      {{ $counter() }})
+    </span>
+
+    <div class="result">
+      @if (isRxLoading()) {
+        <span>Loading...</span>
+      } @else {
+        <span>{{ rxValue() }}</span>
+      }
+    </div>
   </div>
 </main>
