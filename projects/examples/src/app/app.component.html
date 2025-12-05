@@ -1,0 +1,29 @@
+<main>
+  <button (click)="increaseCounter()">Increase counter</button>
+
+  <div class="loader__cont">
+    <span>
+      Set the counter greater than 1 to load the resource (current counter
+      {{ $counter() }})
+    </span>
+
+    @if (isLoaderLoading()) {
+      <span>Loading...</span>
+    } @else {
+      <pre>{{ loaderValue() | json }}</pre>
+    }
+  </div>
+
+  <div class="stream__cont">
+    <span>
+      Set the counter greater than 3 to load the stream (current counter
+      {{ $counter() }})
+    </span>
+
+    @if (isStreamLoading()) {
+      <span>Loading...</span>
+    } @else {
+      <span>{{ streamValue() }}</span>
+    }
+  </div>
+</main>

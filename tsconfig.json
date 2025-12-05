@@ -10,9 +10,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "ng-signalx": [
-        "./dist/ng-signalx"
-      ]
+      "ng-signalx": ["./projects/ng-signalx/src/public-api.ts"]
     },
     "skipLibCheck": true,
     "isolatedModules": true,
