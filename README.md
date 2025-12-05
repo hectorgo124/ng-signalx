@@ -11,6 +11,7 @@ The goal of the project is simple:
 ## Features (current / planned)
 
 - `signalxResource` — extends current Angular resource() with `filter` option
+- `signalxRxresource` — extends current Angular rxResource() with `filter` option
 - More small utilities coming soon
 
 ## Installation
