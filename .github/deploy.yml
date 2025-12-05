@@ -1,0 +1,56 @@
+name: Publish ng-signalx to npm
+
+on: workflow_dispatch
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    if: github.actor != 'github-actions[bot]'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.jobs
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: "https://registry.npmjs.org/"
+
+      - name: Config git
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Increment package version
+        id: increment
+        working-directory: projects/ng-signalx
+        run: |
+          NEW_VERSION=$(npm version patch)
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Build package
+        run: npm run build-ng-signalx
+
+      - name: Publish to npm
+        working-directory: dist/ng-signalx
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish
+
+      - name: Push version bumb commit and tag
+        if: success()
+        env:
+          VERSION: ${{ steps.increment.outputs.new_version }}
+        run: |
+          git add projects/ng-signalx/package*.json || true
+          git commit -m "Increment version to ${VERSION}"
+          git tag ${VERSION}
+          git push origin master
+          git push origin --tags
