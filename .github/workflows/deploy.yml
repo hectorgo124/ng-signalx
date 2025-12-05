@@ -48,6 +48,7 @@ jobs:
         if: success()
         env:
           VERSION: ${{ steps.increment.outputs.new_version }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git add projects/ng-signalx/package*.json || true
           git commit -m "Increment version to ${VERSION}"
