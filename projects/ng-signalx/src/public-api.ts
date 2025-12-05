@@ -3,3 +3,4 @@
  */
 
 export * from './utils/signalxResource';
+export * from './utils/signalxRxresource';
